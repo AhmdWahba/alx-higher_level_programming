@@ -1,8 +1,8 @@
 #!/usr/bin/python3
-"""json file serialization"""
+"""Defines a string-to-JSON function."""
 import json
 
 
 def to_json_string(my_obj):
-    """json file function"""
+    """Return the JSON representation of a string object."""
     return json.dumps(my_obj)
