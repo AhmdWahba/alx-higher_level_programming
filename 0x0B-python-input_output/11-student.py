@@ -1,35 +1,34 @@
 #!/usr/bin/python3
-"""Define a Student class."""
+"""
+Contains the clas "Student"
+"""
 
 
 class Student:
-    """Represent a student class."""
-
+    """Representation of a student"""
     def __init__(self, first_name, last_name, age):
-        """I initialize a new Student.
-        Args:
-            first_name (str): The first name of the student class.
-            last_name (str): The last name of the student class.
-            age (int): The age of the student class.
-        """
+        """Initializes the student"""
         self.first_name = first_name
         self.last_name = last_name
         self.age = age
 
     def to_json(self, attrs=None):
-        """list of strings, only attributes name contain in this list must be retrieved.
-        Args:
-            attrs (list): The attributes to represent.
-        """
-        if (type(attrs) == list and
-                all(type(ele) == str for ele in attrs)):
-            return {v: getattr(self, v) for v in attrs if hasattr(self, v)}
-        return self.__dict__
+        """returns a dictionary representation of a Student instance
+        with specified attributes"""
+        if attrs is None:
+            return self.__dict__
+        new_dict = {}
+        for a in attrs:
+            try:
+                new_dict[a] = self.__dict__[a]
+            except FileNotFoundError:
+                pass
+        return new_dict
 
     def reload_from_json(self, json):
-        """Replace all attributes of the Student class.
-        Args:
-            json (dict): The key value  of pairs to replaces all attributes of the student class.
-        """
-        for v, w in json.items():
-            setattr(self, v, w)
+        """replaces all attributes of the Student instance"""
+        for key in json:
+            try:
+                setattr(self, key, json[key])
+            except FileNotFoundError:
+                pass

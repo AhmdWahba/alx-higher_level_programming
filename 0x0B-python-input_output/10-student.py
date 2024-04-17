@@ -1,12 +1,12 @@
 #!/usr/bin/python3
-"""Define a student class."""
+"""Defines a class Student."""
 
 
 class Student:
-    """Represent a student class."""
+    """Represent a student."""
 
     def __init__(self, first_name, last_name, age):
-        """I initialize a new Student class.
+        """Initialize a new Student.
         Args:
             first_name (str): The first name of the student.
             last_name (str): The last name of the student.
@@ -17,11 +17,13 @@ class Student:
         self.age = age
 
     def to_json(self, attrs=None):
-        """list of strings and attribute names contained in this list must be retrieved.
+        """Get a dictionary representation of the Student.
+        If attrs is a list of strings, represents only those attributes
+        included in the list.
         Args:
-            attrs (list): The attribute to represent a student.
+            attrs (list): (Optional) The attributes to represent.
         """
         if (type(attrs) == list and
-                all(type(element) == str for element in attrs)):
-            return {v: getattr(self, v) for v in attrs if hasattr(self, v)}
+                all(type(ele) == str for ele in attrs)):
+            return {k: getattr(self, k) for k in attrs if hasattr(self, k)}
         return self.__dict__
