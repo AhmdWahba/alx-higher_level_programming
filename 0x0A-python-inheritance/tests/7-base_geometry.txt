@@ -1,27 +1,57 @@
->>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
+# The ``7-base_geometry`` module
 
->>> BaseGeometry.integer_validator("width", 20)
 
->>> BaseGeometry.integer_validator("idk", 0)
-Traceback (most recent call last):
-ValueError: idk must be greater than 0
+Import the class from the module:
+	>>> BaseGeometry = __import__('7-base_geometry').BaseGeometry
 
->>> BaseGeometry.integer_validator("width", 5, 4)
-Traceback (most recent call last):
-TypeError: integer_validator() takes 3 positional arguments but 4 were given
+Check Style:
+	>>> import pycodestyle
+	>>> import sys
 
->>> BaseGeometry.integer_validator("Time", -32)
-Traceback (most recent call last):
-ValueError: Time must be greater than 0
+Create a StyleGuide instance:
+	>>> style_guide = pycodestyle.StyleGuide()
 
->>> BaseGeometry.integer_validator("Life", 4.2)
-Traceback (most recent call last):
-TypeError: Life must be an integer
+Define the files or directories you want to check:
+	>>> files_to_check = ['7-base_geometry.py']
 
->>> BaseGeometry.integer_validator("cat", "Maiq")
-Traceback (most recent call last):
-TypeError: cat must be an integer
+Check the style of the specified files:
+	>>> result = style_guide.check_files(files_to_check)
 
->>> BaseGeometry.integer_validator("width")
-Traceback (most recent call last):
-TypeError: integer_validator() missing 1 required positional argument: 'value'
+Check the results:
+	>>> result.total_errors
+	0
+
+Checking for module docstring:
+	>>> module_doc = __import__("7-base_geometry").__doc__
+	>>> len(module_doc) > 1
+	True
+
+Checking for class docstring:
+	>>> function_doc = __import__("7-base_geometry").BaseGeometry.__doc__
+	>>> len(function_doc) > 1
+	True
+
+Check for simple use:
+
+	>>> bg = BaseGeometry()
+	>>> bg.integer_validator("my_int", 12)
+	>>> bg.integer_validator("width", 89)
+
+	>>> try:
+	...	bg.integer_validator("name", "John")
+	... except Exception as e:
+	...	print("[{}] {}".format(e.__class__.__name__, e))
+	...
+	[TypeError] name must be an integer
+	>>> try:
+	...	 bg.integer_validator("age", 0)
+	... except Exception as e:
+	...	 print("[{}] {}".format(e.__class__.__name__, e))
+	...
+	[ValueError] age must be greater than 0
+	>>> try:
+	...	 bg.integer_validator("distance", -4)
+	... except Exception as e:
+	...	 print("[{}] {}".format(e.__class__.__name__, e))
+	...
+	[ValueError] distance must be greater than 0

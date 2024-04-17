@@ -1,8 +1,7 @@
 #!/usr/bin/python3
+"""isinstance module"""
 
 
 def is_kind_of_class(obj, a_class):
-    if isinstance(obj, a_class):
-        return True
-    else:
-        return False
+    """isinstance function"""
+    return isinstance(obj, a_class)

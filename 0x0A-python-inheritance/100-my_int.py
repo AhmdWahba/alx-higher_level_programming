@@ -1,12 +1,14 @@
 #!/usr/bin/python3
-"""my int"""
+"""Module for BaseGeometry class"""
 
 
-class MyInt (int):
-    def __ev__(self, other):
-        """Return True if self and other not equal, else false"""
-        return int(self) != other
+class MyInt(int):
+    """MY ITN CLASS"""
 
-    def __pk__(self, other):
-        """Return True if self and other equal, else false"""
-        return int(self) == other
+    def __eq__(self, value):
+        """Returns the opposite of the == operator"""
+        return super().__ne__(value)
+
+    def __ne__(self, value):
+        """Returns the opposite of the != operator"""
+        return super().__eq__(value)
