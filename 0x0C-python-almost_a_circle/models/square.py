@@ -1,49 +1,66 @@
 #!/usr/bin/python3
-'''Module for Square class.'''
+"""The square model, let's write"""
 from models.rectangle import Rectangle
 
 
 class Square(Rectangle):
-    '''A Square class.'''
+    """the square model"""
 
     def __init__(self, size, x=0, y=0, id=None):
-        '''Constructor.'''
-        super().__init__(size, size, x, y, id)
+        """The constructor class for the square"""
+        super().__init__(width=size, height=size, x=x, y=y, id=id)
 
     def __str__(self):
-        '''Returns string info about this square.'''
-        return '[{}] ({}) {}/{} - {}'.\
-            format(type(self).__name__, self.id, self.x, self.y, self.width)
+        """update the print for square"""
+        value = "[Square] ({}) {}/{} - {}".format(self.id, self.x,
+                                                  self.y, self.width)
+        return (value)
 
     @property
     def size(self):
-        '''Size of this square.'''
-        return self.width
+        """getter of size"""
+        return (self.width)
 
     @size.setter
     def size(self, value):
+        """set the size"""
         self.width = value
         self.height = value
 
-    def __update(self, id=None, size=None, x=None, y=None):
-        '''Internal method that updates instance attributes via */**args.'''
-        if id is not None:
-            self.id = id
-        if size is not None:
-            self.size = size
-        if x is not None:
-            self.x = x
-        if y is not None:
-            self.y = y
-
     def update(self, *args, **kwargs):
-        '''Updates instance attributes via no-keyword & keyword args.'''
-        if args:
-            self.__update(*args)
-        elif kwargs:
-            self.__update(**kwargs)
+        """update the attribute based on variable/keyword argument"""
+        if args and len(args) != 0:
+            a = 0
+            for arg in args:
+                if a == 0:
+                    if arg is None:
+                        self.__init__(self.size, self.x, self.y)
+                    else:
+                        self.id = arg
+                elif a == 1:
+                    self.size = arg
+                elif a == 2:
+                    self.x = arg
+                elif a == 3:
+                    self.y = arg
+                a += 1
+        elif kwargs and len(kwargs) != 0: 
+            for k, v in kwargs.items():
+                if k == "id":
+                    if v is None:
+                        self.__init__(self.size, self.x, self.y)
+                    else:
+                        self.id = v
+                elif k == "size":
+                    self.size = v
+                elif k == "x":
+                    self.x = v
+                elif k == "y":
+                    self.y = v
 
     def to_dictionary(self):
-        '''Returns dictionary representation of this class.'''
-        return {"id": self.id, "size": self.width,
-                "x": self.x, "y": self.y}
+        """return the dictionary representa... of attr..."""
+        return {'id': self.id,
+                'size': self.size,
+                'x': self.x,
+                'y': self.y}
